@@ -54,7 +54,7 @@ function parseTweets(runkeeper_tweets) {
 	const livePct = (counter.live_event / total) * 100;
 	const achievementPct = (counter.achievement / total) * 100;
 	const miscPct = (counter.miscellaneous / total) * 100;
-	const writtenPct = (counter.written / total) * 100;
+	const writtenPct = (counter.written / counter.completed_event) * 100;
 
 	const completedPctStr = math.format(completedPct, {notation: 'fixed', precision: 2}) + "%";
 	const livePctStr = math.format(livePct, {notation: 'fixed', precision: 2}) + "%";
