@@ -57,6 +57,14 @@ class Tweet {
             return "unknown";
         }
         //TODO: parse the activity type from the text of the tweet
+        const cur_text = this.text;
+
+        const activities = ["ski", "run", "walk", "bike", "yoga", "workout", "swim", "hike"];
+        for (const i of activities) {
+            if (cur_text.includes(i)) {
+                return i;
+            }
+        }
         return "";
     }
 
@@ -65,6 +73,24 @@ class Tweet {
             return 0;
         }
         //TODO: prase the distance from the text of the tweet
+        const cur_text = this.text;
+
+        const miIndex = cur_text.indexOf(" mi");
+        const kmIndex = cur_text.indexOf(" km");
+        const aIndex = cur_text.indexOf(" a ") + 3;
+
+        const miDistStr = cur_text.substring(aIndex, miIndex);
+        const kmDistStr = cur_text.substring(aIndex, kmIndex);
+
+        const miDist = parseFloat(miDistStr);
+        const kmDist = parseFloat(kmDistStr);
+
+        if (cur_text.includes(" mi")) {
+            return miDist;
+        }
+        if (cur_text.includes(" km")) {
+            return kmDist / 1.609;
+        }
         return 0;
     }
 
