@@ -16,6 +16,9 @@
 https://www.typescriptlang.org/docs/handbook/2/classes.html
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleDateString
 https://www.w3schools.com/jsref/jsref_obj_string.asp
+https://www.w3schools.com/js/js_objects.asp#gsc.tab=0
+https://www.w3schools.com/js/js_array_sort.asp
+
 
 
 4. What classmates or other individuals did you consult as part of this assignment? What did you discuss?
