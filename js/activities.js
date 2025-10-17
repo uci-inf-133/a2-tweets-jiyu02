@@ -10,17 +10,34 @@ function parseTweets(runkeeper_tweets) {
 	});
 
 	//TODO: create a new array or manipulate tweet_array to create a graph of the number of tweets containing each type of activity.
-	const top3Activities = ["run", "walk", "bike"];
-	const activityCount = [];
+	const activityCounter = {};
+	for (const a of tweet_array) {
+		if (a.source === "completed_event") {
+			const b = a.activityType;
+			if (!activityCounter[b]) {
+				activityCounter[b] = 0;
+			}
+			activityCounter[b]++;
+		}
+	}
 
+	const activityCount = [];
+	for (const t in activityCounter) {
+		activityCount.push({ activity: t, count: activityCounter[t] });
+	}
 	
 	activity_vis_spec = {
 	  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
 	  "description": "A graph of the number of Tweets containing each type of activity.",
 	  "data": {
-	    "values": tweet_array
-	  }
+	    "values": activityCount
+	  },
 	  //TODO: Add mark and encoding
+	  "mark": "bar",
+	  "encoding": {
+		"x": { "field": "activity", "type": "nominal" },
+		"y": { "field": "count", "type": "quantitative" }
+	  }
 	};
 	vegaEmbed('#activityVis', activity_vis_spec, {actions:false});
 
@@ -128,6 +145,47 @@ function parseTweets(runkeeper_tweets) {
 	document.getElementById('longestActivityType').textContent = longest;
 	document.getElementById('shortestActivityType').textContent = shortest;
 	document.getElementById('weekdayOrWeekendLonger').textContent = longer;
+
+	const distDay = [];
+	for (const t of tweet_array) {
+		if (t.source === "completed_event") {
+			if (t.activityType === top1 || t.activityType === top2 || t.activityType === top3) {
+				const dayName = t.time.toLocaleDateString(undefined, { weekday: "long" });
+				distDay.push({activity: t.activityType, day: dayName, distance: t.distance});
+			}
+		}
+	}
+	const weekOrder = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+	distance_vis_spec = {
+	  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+	  "description": "A graph of the distance done per activity each day.",
+	  "data": {
+	    "values": distDay
+	  },
+	  "mark": "point",
+	  "encoding": {
+		"x": { "field": "day", "type": "ordinal", "sort": weekOrder},
+		"y": { "field": "distance", "type": "quantitative" },
+		"color": { "field": "activity", "type": "nominal"}
+	  }
+	};
+	vegaEmbed('#distanceVis', distance_vis_spec, {actions:false});
+
+	distance_vis_agg_spec = {
+	  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+	  "description": "A graph of the mean distance done per activity each day.",
+	  "data": {
+	    "values": distDay
+	  },
+	  "mark": "point",
+	  "encoding": {
+		"x": { "field": "day", "type": "ordinal", "sort": weekOrder},
+		"y": { "field": "distance", "type": "quantitative", "aggregate": "mean"},
+		"color": { "field": "activity", "type": "nominal"}
+	  }
+	};
+	vegaEmbed('#distanceVisAggregated', distance_vis_agg_spec, {actions:false});
+
 }
 
 //Wait for the DOM to load

@@ -65,7 +65,7 @@ class Tweet {
                 return i;
             }
         }
-        return "";
+        return "others";
     }
 
     get distance():number {

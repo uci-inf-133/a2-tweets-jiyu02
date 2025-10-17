@@ -13,11 +13,13 @@
 
 3. What online resources did you consult when completing this assignment? (list sites like StackOverflow or specific URLs for tutorials; describe queries to Generative AI or use of AI-based code completion)
 
+Lecture slides
 https://www.typescriptlang.org/docs/handbook/2/classes.html
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleDateString
 https://www.w3schools.com/jsref/jsref_obj_string.asp
 https://www.w3schools.com/js/js_objects.asp#gsc.tab=0
 https://www.w3schools.com/js/js_array_sort.asp
+https://vega.github.io/vega-lite/examples/
 
 
 
