@@ -21,6 +21,7 @@ https://www.w3schools.com/js/js_objects.asp#gsc.tab=0
 https://www.w3schools.com/js/js_array_sort.asp
 https://vega.github.io/vega-lite/examples/
 https://inf133.netlify.app/javascript-tutorial.html
+https://www.w3schools.com/js/js_htmldom.asp
 
 
 4. What classmates or other individuals did you consult as part of this assignment? What did you discuss?

@@ -69,12 +69,12 @@ function parseTweets(runkeeper_tweets) {
 	const top2 = actArray[1][0];
 	const top3 = actArray[2][0];
 
-	document.getElementById('numberActivities').textContent = actArray.length;
+	document.getElementById('numberActivities').textContent = activityCount.length;
 	document.getElementById('firstMost').textContent = top1;
 	document.getElementById('secondMost').textContent = top2;
 	document.getElementById('thirdMost').textContent = top3;
 
-	var top1Dist = 0, top1Count = 0, top2Dist = 0, top2Count = 0, top3Dist = 0, top3Count = 0;
+	let top1Dist = 0, top1Count = 0, top2Dist = 0, top2Count = 0, top3Dist = 0, top3Count = 0;
 	for (const j of tweet_array) {
 		if (j.activityType == top1) {
 			top1Dist += j.distance;
@@ -93,8 +93,8 @@ function parseTweets(runkeeper_tweets) {
 	const top2Avg = top2Dist/top2Count;
 	const top3Avg = top3Dist/top3Count;
 
-	var longest = top1;
-	var longestAvg = top1Avg;
+	let longest = top1;
+	let longestAvg = top1Avg;
 
 	if (top2Avg > longestAvg) {
 		longest = top2;
@@ -105,8 +105,8 @@ function parseTweets(runkeeper_tweets) {
 		longestAvg = top3Avg;
 	}
 
-	var shortest = top1;
-	var shortestAvg = top1Avg;
+	let shortest = top1;
+	let shortestAvg = top1Avg;
 
 	if (top2Avg < shortestAvg) {
 		shortest = top2;
@@ -117,7 +117,7 @@ function parseTweets(runkeeper_tweets) {
 		shortestAvg = top3Avg;
 	}
 
-	var weekdayDist = 0, weekdayCount = 0, weekendDist = 0, weekendCount = 0;
+	let weekdayDist = 0, weekdayCount = 0, weekendDist = 0, weekendCount = 0;
 
 	for (const k of tweet_array) {
 		const day = k.time.toLocaleDateString(undefined, {weekday: "long"});
@@ -133,7 +133,7 @@ function parseTweets(runkeeper_tweets) {
 
 	const weekdayAvg = weekdayDist/weekdayCount;
 	const weekendAvg = weekendDist/weekendCount;
-	var longer = "";
+	let longer = "";
 
 	if (weekdayAvg > weekendAvg) {
 		longer = "weekdays";
@@ -186,6 +186,27 @@ function parseTweets(runkeeper_tweets) {
 	};
 	vegaEmbed('#distanceVisAggregated', distance_vis_agg_spec, {actions:false});
 
+	const button = document.getElementById("aggregate");
+	const distanceChart = document.getElementById("distanceVis");
+	const meanChart = document.getElementById("distanceVisAggregated");
+
+	meanChart.style.display = "none";
+ 	button.textContent = "Show means";
+	let showingMean = false;
+
+	button.addEventListener("click", function() {
+    if (showingMean) {
+      meanChart.style.display = "none";
+      distanceChart.style.display = "block";
+      button.textContent = "Show means";
+      showingMean = false;
+    } else {
+      distanceChart.style.display = "none";
+      meanChart.style.display = "block";
+      button.textContent = "Show all activities";
+      showingMean = true;
+    }
+  });
 }
 
 //Wait for the DOM to load
