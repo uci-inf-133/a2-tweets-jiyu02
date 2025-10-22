@@ -11,6 +11,7 @@ function parseTweets(runkeeper_tweets) {
 		return new Tweet(tweet.text, tweet.created_at);
 	});
 
+	writtenTweets = [];
 	for (let i = 0; i < tweet_array.length; i++) {
 		const t = tweet_array[i];
     	if (t.written === true) {
@@ -43,12 +44,13 @@ function addEventHandlerForSearch() {
 		for (let i = 0; i < writtenTweets.length; i++) {
 			const t = writtenTweets[i].tweet;
 
-			if (t.text.includes(input.value)) {
+			if (t.writtenText.includes(input.value)) {
 				const row = t.getHTMLTableRow(writtenTweets[i].index + 1);
+				table.insertAdjacentHTML('beforeend', row);
 				matching++;
 			}
 		}
-		count.textContent = matching;
+		count.textContent = String(matching);
 	});
 }
 
