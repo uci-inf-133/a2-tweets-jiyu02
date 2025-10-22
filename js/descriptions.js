@@ -6,11 +6,31 @@ function parseTweets(runkeeper_tweets) {
 	}
 
 	//TODO: Filter to just the written tweets
-	
+	tweet_array = runkeeper_tweets.map(function(tweet) {
+		return new Tweet(tweet.text, tweet.created_at);
+	});
+
+	let writtenTweets = [];
+	for (i = 0; i < tweet_array.length; i++) {
+		const t = tweet_array[i];
+    	if (t.written === true) {
+      		writtenTweets.push({ tweet: t, index: i });
+    	}
+	}
+
+	const count = document.getElementById('searchCount').textContent = '0';
+  	const text  = document.getElementById('searchText').textContent = '';
+  	const table = document.getElementById('tweetTable').innerHTML = '';
 }
 
 function addEventHandlerForSearch() {
 	//TODO: Search the written tweets as text is entered into the search box, and add them to the table
+	const input   = document.getElementById('textFilter');
+  	const count = document.getElementById('searchCount');
+  	const text  = document.getElementById('searchText');
+  	const table = document.getElementById('tweetTable');
+
+	
 }
 
 //Wait for the DOM to load
