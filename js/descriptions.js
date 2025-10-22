@@ -30,7 +30,26 @@ function addEventHandlerForSearch() {
   	const text  = document.getElementById('searchText');
   	const table = document.getElementById('tweetTable');
 
-	
+	input.addEventListener('input', function() {
+		text.textContent = input.value;
+		table.innerHTML = '';
+
+		if (input.value == '') {
+			count.textContent = '0';
+			return;
+		}
+		let matching = 0;
+
+		for (i = 0; i < writtenTweets.length; i++) {
+			const t = writtenTweets[i].tweet;
+
+			if (t.text == input.value) {
+				const row = t.getHTMLTableRow(writtenTweets[i].index + 1);
+				matching++;
+			}
+		}
+		count.textContent = matching;
+	});
 }
 
 //Wait for the DOM to load
