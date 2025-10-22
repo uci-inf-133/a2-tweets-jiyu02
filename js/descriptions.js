@@ -1,3 +1,4 @@
+let writtenTweets = [];
 function parseTweets(runkeeper_tweets) {
 	//Do not proceed if no tweets loaded
 	if(runkeeper_tweets === undefined) {
@@ -10,8 +11,7 @@ function parseTweets(runkeeper_tweets) {
 		return new Tweet(tweet.text, tweet.created_at);
 	});
 
-	let writtenTweets = [];
-	for (i = 0; i < tweet_array.length; i++) {
+	for (let i = 0; i < tweet_array.length; i++) {
 		const t = tweet_array[i];
     	if (t.written === true) {
       		writtenTweets.push({ tweet: t, index: i });
@@ -40,10 +40,10 @@ function addEventHandlerForSearch() {
 		}
 		let matching = 0;
 
-		for (i = 0; i < writtenTweets.length; i++) {
+		for (let i = 0; i < writtenTweets.length; i++) {
 			const t = writtenTweets[i].tweet;
 
-			if (t.text == input.value) {
+			if (t.text.includes(input.value)) {
 				const row = t.getHTMLTableRow(writtenTweets[i].index + 1);
 				matching++;
 			}
