@@ -96,6 +96,20 @@ class Tweet {
 
     getHTMLTableRow(rowNumber:number):string {
         //TODO: return a table row which summarizes the tweet with a clickable link to the RunKeeper activity
-        return "<tr></tr>";
+        let text = this.text;
+        let link = "";
+
+        const start = text.indexOf("https");
+        const end = text.indexOf(" #Runkeeper");
+        link = text.substring(start, end);
+
+        if (link !== "") {
+            const linkHTML = `<a href="${link}">${link}</a>`;
+            text = text.replace(link, linkHTML);
+        }
+
+        const activity = this.activityType;
+        
+        return `<tr><td>${rowNumber}</td><td>${activity}</td><td>${text}</td></tr>`;
     }
 }
